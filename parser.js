@@ -10,6 +10,22 @@
 var fs = require('fs');
 var text = fs.readFileSync('games.log', 'utf8');
 
+var get_kills = function(game_param){
+  var re = /Kill:(.*)\n/g;
+  var s = game_param;
+  var m;
+  var kills = 0;
+  
+  do {
+      m = re.exec(s);
+      if (m) {
+        kills++
+      }
+  } while (m);
+  console.log(kills);
+  return kills;
+};
+
 var get_games = function(text_param){
   var re = /InitGame(((.|\n)(?!-{60}))*)/g;
   var s = text_param;
@@ -21,12 +37,12 @@ var get_games = function(text_param){
       if (m) {
         var game = {};
         game.content = m[1];
+        game.total_kills = get_kills(game.content);
         games.push(game);
       }
   } while (m);
   return games;
 };
-
 
 var result = get_games(text);
 var games_js = JSON.stringify(result);
