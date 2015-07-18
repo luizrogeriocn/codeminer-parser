@@ -6,9 +6,8 @@ var get_attribute = function(text_param, re_param){
   var m;
   do {
       m = re_param.exec(text_param);
-      if (m) {
+      if (m)
         return m[1];
-      }
   } while (m);
 };
 
@@ -20,19 +19,34 @@ var get_kills = function(game_param){
   var s = game_param;
   var m;
   var kills = {};
-  kills.killers = {};
   kills.total = 0;
   do {
       m = re.exec(s);
       if (m) {
         kills.total++;
         var killer = get_attribute(m[0], killer_re);
-        var killed = get_attribute(m[0], killed_re);
-        var mean = get_attribute(m[0], mean_re);
-        if (kills.killers[killer] != undefined)
-          kills.killers[killer] = kills.killers[killer]+1;
+        if (kills[killer] != undefined)
+          kills[killer] = kills[killer]+1;
         else
-          kills.killers[killer] = 1;
+          kills[killer] = 1;
+      }
+  } while (m);
+  return kills;
+};
+
+var get_kills_by_means = function(game_param){
+  var re = /Kill:(.*)\n/g;
+  var mean_re = /\d\s(\d+):/;
+  var m;
+  var kills = {};
+  do {
+      m = re.exec(game_param);
+      if (m) {
+        var mean = get_attribute(m[0], mean_re);
+        if (kills[mean] != undefined)
+          kills[mean] = kills[mean]+1;
+        else
+          kills[mean] = 1;
       }
   } while (m);
   return kills;
@@ -64,9 +78,10 @@ var get_games = function(text_param){
       m = re.exec(text_param);
       if (m) {
         var game = {};
-        var content = m[1];
-        game.kills = get_kills(content);
-        game.players = get_players(content);
+        var game_content = m[1];
+        game.kills = get_kills(game_content);
+        game.kills_by_means = get_kills_by_means(game_content);
+        game.players = get_players(game_content);
         games.push(game);
       }
   } while (m);
