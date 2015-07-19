@@ -19,7 +19,18 @@ var Game = function (players_info, means_of_death) {
     };
   };
 
-  // this.set_kills = function(param){};
+  this.set_kills = function(param){
+    delete param['total'];
+    delete param['1022'];
+
+    for (var key in param) {
+      if (param.hasOwnProperty(key)) {
+        var name = this.players_info[key];
+        this.kills[name] = param[key];
+      }
+    };
+  };
+
   // this.set_kills_by_means = function(kills_param, means_of_death_param){};
 };
 module.exports = Game;
