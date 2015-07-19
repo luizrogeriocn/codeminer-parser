@@ -39,5 +39,6 @@ var Game = function (players_info, means_of_death) {
       }
     };
   };
+
 };
 module.exports = Game;
