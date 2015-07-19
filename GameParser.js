@@ -15,7 +15,14 @@ var GameParser = function(game_log) {
     do {
         m = re.exec(text_param);
         if (m) {
+          var game_content = m[1];
+          var players_info = this.player_parser.get_players(game_content);
+          var means_of_death = this.kill_parser.get_means_of_death(game_content);
+          var kills = this.kill_parser.get_kills(game_content);
           
+          var game = new Game(players_info, means_of_death);
+          game.set_total_kills(kills);
+          game.set_players();
           
           // game.kills_by_means = this.kill_parser.get_kills_by_means(game_content);
           games.push(game);
