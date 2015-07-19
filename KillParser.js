@@ -54,8 +54,8 @@ var Kill = function(game_log){
     do {
         m = re.exec(text_param);
         if (m) {
-          var mean_name = get_attribute(m[0], mean_name_re);
-          var mean_id = get_attribute(m[0], mean_id_re);
+          var mean_name = this.helper.get_attribute(m[0], mean_name_re);
+          var mean_id = this.helper.get_attribute(m[0], mean_id_re);
           means[mean_id] = mean_name;
         }
     } while (m);
