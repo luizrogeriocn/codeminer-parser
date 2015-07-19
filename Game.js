@@ -31,6 +31,13 @@ var Game = function (players_info, means_of_death) {
     };
   };
 
-  // this.set_kills_by_means = function(kills_param, means_of_death_param){};
+  this.set_kills_by_means = function(param){
+    for (var key in param) {
+      if (param.hasOwnProperty(key)) {
+        var name = this.means_of_death[key];
+        this.kills_by_means[name] = param[key];
+      }
+    };
+  };
 };
 module.exports = Game;
