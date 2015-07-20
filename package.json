@@ -1,0 +1,5 @@
+{
+  "scripts": {
+    "test": "istanbul cover --include-all-sources jasmine-node spec"
+  }
+}
