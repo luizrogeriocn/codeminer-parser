@@ -1,7 +1,7 @@
 var fs = require('fs');
 var one_game = fs.readFileSync('./spec/one_game.log', 'utf8');
 var two_game = fs.readFileSync('./spec/two_game.log', 'utf8');
-var game_player_kill = fs.readFileSync('./spec/game_player_kill.log', 'utf8');
+var one_game = fs.readFileSync('./spec/one_game.log', 'utf8');
 
 var GameParser = require('../GameParser');
 var PlayerParser = require('../PlayerParser');
@@ -23,9 +23,9 @@ describe("Game Parsing", function () {
       expect(games.length).toBe(1);
     });
 
-    it("should have only one player", function () {
+    it("should have players", function () {
       var players = games[0].players
-      expect(players.length).toBe(1);
+      expect(players.length).toBeGreaterThan(0);
     });
 
     it("should have a player called Isgalamido", function () {
@@ -53,7 +53,7 @@ describe("Player Parsing", function () {
 
   beforeEach(function() {
     playerParser = new PlayerParser();
-    players = playerParser.get_players(game_player_kill);
+    players = playerParser.get_players(one_game);
   });
 
   it("should have 6 players", function () {
@@ -67,13 +67,32 @@ describe("Player Parsing", function () {
   });
 });
 
-describe("Player Parsing", function () {
+describe("Kills Parsing", function () {
   var killParser;
   var kills;
+  var means;
+  var kill_by_means;
 
   beforeEach(function() {
     killParser = new KillParser();
-    kills = killParser.get_kills(game_player_kill);
+    kills = killParser.get_kills(one_game);
+    means = killParser.get_means_of_death(one_game);
+    kills_by_means = killParser.get_kills_by_means(one_game);
+  });
+
+  it("should have kills", function () {
+    var count = Object.keys(kills).length
+    expect(count).toBeGreaterThan(0);
+  });
+
+  it("should have means of deaths", function () {
+    var count = Object.keys(means).length
+    expect(count).toBeGreaterThan(0);
+  });
+
+  it("should have kills by means", function () {
+    var count = Object.keys(kills_by_means).length
+    expect(count).toBeGreaterThan(0);
   });
 });
 
