@@ -26,6 +26,7 @@ var GameParser = function(game_log) {
           game.set_players();
           game.set_kills(kills);
           game.set_kills_by_means(kills_by_means);
+          game.sort_kills();
 
           this.games.push(game);
         }
