@@ -1,5 +1,15 @@
 {
+  "name": "codeminer-parser",
+  "version": "0.0.1",
+  "description": "Quake 3 Arena log parser",
+  "main": "test.js",
+  "author": "luizrogeriocn",
+  "dependencies": {
+    "istanbul": "^0.3.17",
+    "jasmine-node": "^1.14.5"
+  },
   "scripts": {
-    "test": "istanbul cover --include-all-sources jasmine-node spec"
+    "test": "istanbul cover --include-all-sources jasmine-node spec",
+    "start": "node test.js"
   }
 }
