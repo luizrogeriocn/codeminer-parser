@@ -18,10 +18,18 @@ var Kill = function(game_log){
         if (m) {
           kills.total++;
           var killer = this.helper.get_attribute(m[0], killer_re);
+          var killed = this.helper.get_attribute(m[0], killed_re);
           if (kills[killer] != undefined)
             kills[killer] = kills[killer]+1;
           else
             kills[killer] = 1;
+
+          if(killer == '1022'){
+            if(kills[killed] != undefined )
+              kills[killed] = kills[killed] -1;
+            else
+              kills[killed] = -1;
+          }
         }
     } while (m);
     return kills;
